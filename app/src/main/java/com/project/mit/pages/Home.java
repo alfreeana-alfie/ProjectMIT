@@ -25,7 +25,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.project.mit.R;
 import com.project.mit.adapter.RecordAdapter;
+import com.project.mit.details.RecordDetails;
+import com.project.mit.models.Location;
 import com.project.mit.models.Record;
+import com.project.mit.models.User;
 import com.project.mit.session.SessionManager;
 import com.project.mit.user.MyProfile;
 import com.squareup.picasso.Picasso;
@@ -40,12 +43,6 @@ import java.util.List;
 
 @SuppressLint({"SetTextI18n","NonConstantResourceId"})
 public class Home extends AppCompatActivity {
-
-    private static final int CAMERA_REQUEST = 1888;
-    private static String ImageURL = "http://hawkingnight.com/projectmit/Image/avatar.png";
-    private static String API_CREATE_RECORD = "http://hawkingnight.com/projectmit/API/CreateRecord.php";
-    private static String API_GET_HISTORY = "http://hawkingnight.com/projectmit/API/GetRecordUser.php?";
-
     private IntentIntegrator QRScanner;
 
     ImageView UserImage;
@@ -54,11 +51,15 @@ public class Home extends AppCompatActivity {
     FloatingActionButton CameraOpen;
 
     RecyclerView RecordView;
-    List<Record> recordList;
+    List<RecordDetails> recordDetailsList;
     RecordAdapter recordAdapter;
 
-    String getUID, getFirstName, getLastName, getEmail;
+    String getUID, getImage, getFirstName, getLastName, getEmail;
     SessionManager sessionManager;
+
+    User user;
+    Record record;
+    Location location;
 
     private void ToolbarSettings(){
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -77,8 +78,12 @@ public class Home extends AppCompatActivity {
         RecordView.setLayoutManager(new LinearLayoutManager(this));
         RecordView.setNestedScrollingEnabled(false);
 
-        recordList = new ArrayList<>();
+        recordDetailsList = new ArrayList<>();
         QRScanner = new IntentIntegrator(this);
+
+        user = new User();
+        record = new Record();
+        location = new Location();
     }
     private void getSession(){
         sessionManager = new SessionManager(getApplicationContext());
@@ -86,12 +91,14 @@ public class Home extends AppCompatActivity {
 
         HashMap<String, String> UserDetails = sessionManager.getUserDetail();
         getUID = UserDetails.get(SessionManager.UID);
+        getImage = UserDetails.get(SessionManager.PROFILE_PICTURE);
         getFirstName = UserDetails.get(SessionManager.FIRSTNAME);
         getLastName = UserDetails.get(SessionManager.LASTNAME);
         getEmail = UserDetails.get(SessionManager.EMAIL);
     }
     private void MethodSettings(){
-        Picasso.get().load(ImageURL).into(UserImage);
+        Log.i("IMAGE", getImage);
+        Picasso.get().load(getImage).into(UserImage);
         FullNameText.setText(getFirstName + " " + getLastName);
         EmailAddressText.setText(getEmail);
 
@@ -128,7 +135,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void GetHistoryList(){
-        String SIGN_IN_API = API_GET_HISTORY + "UserID=" + getUID;
+        String SIGN_IN_API = record.GetRecordUser + "UserID=" + getUID;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, SIGN_IN_API, response -> {
             try {
@@ -138,22 +145,22 @@ public class Home extends AppCompatActivity {
                 for(int i = 0; i<jsonArray.length();i++){
                     JSONObject object = jsonArray.getJSONObject(i);
 
-                    String RecordID = object.getString("RecordID");
-                    String LocationID = object.getString("LocationID");
-                    String LocationName = object.getString("LocationName");
-                    String LocationFullAddress = object.getString("LocationFullAddress");
-                    String RiskStatus = object.getString("RiskStatus");
-                    String ZoneStatus = object.getString("ZoneStatus");
-                    String CreatedDateTime = object.getString("CreatedDateTime");
+                    String RecordID = object.getString(record.RecordID);
+                    String LocationID = object.getString(record.LocationID);
+                    String LocationName = object.getString(record.LocationName);
+                    String LocationFullAddress = object.getString(record.LocationFullAddress);
+                    String RiskStatus = object.getString(record.RiskStatus);
+                    String ZoneStatus = object.getString(record.ZoneStatus);
+                    String CreatedDateTime = object.getString(record.CreatedDateTime);
 
                     Log.i("USER", RecordID);
-                    Record record = new Record(RecordID, getUID,
+                    RecordDetails recordDetails = new RecordDetails(RecordID, getUID,
                             LocationID, LocationName,
                             LocationFullAddress,RiskStatus,
                             ZoneStatus, CreatedDateTime);
-                    recordList.add(record);
+                    recordDetailsList.add(recordDetails);
                 }
-                recordAdapter = new RecordAdapter(getApplicationContext(), recordList);
+                recordAdapter = new RecordAdapter(getApplicationContext(), recordDetailsList);
                 RecordView.setAdapter(recordAdapter);
 
             } catch (JSONException e) {
@@ -176,27 +183,27 @@ public class Home extends AppCompatActivity {
                 try {
                     JSONObject obj = new JSONObject(result.getContents());
 
-                    String LocationID = obj.getString("LocationID");
-                    String LocationName = obj.getString("LocationName");
-                    String Address01 = obj.getString("Address01");
-                    String Address02 = obj.getString("Address02");
-                    String City = obj.getString("City");
-                    String State = obj.getString("State");
-                    String Postcode = obj.getString("Postcode");
-                    String RiskStatus = obj.getString("RiskStatus");
-                    String ZoneStatus = obj.getString("ZoneStatus");
+                    String LocationID = obj.getString(location.LocationID);
+                    String LocationName = obj.getString(location.LocationName);
+                    String Address01 = obj.getString(location.Address01);
+                    String Address02 = obj.getString(location.Address02);
+                    String City = obj.getString(location.City);
+                    String State = obj.getString(location.State);
+                    String Postcode = obj.getString(location.Postcode);
+                    String RiskStatus = obj.getString(location.RiskStatus);
+                    String ZoneStatus = obj.getString(location.ZoneStatus);
 
                     String LocationFullAddress = Address01 + ", " + Address02 + ", " + Postcode + ", " + City + ", " + State;
 
                     HashMap<String, String> parameters = new HashMap<>();
-                    parameters.put("UserID", getUID);
-                    parameters.put("LocationID", LocationID);
-                    parameters.put("LocationName", LocationName);
-                    parameters.put("LocationFullAddress", LocationFullAddress);
-                    parameters.put("RiskStatus", RiskStatus);
-                    parameters.put("ZoneStatus", ZoneStatus);
+                    parameters.put(record.UserID, getUID);
+                    parameters.put(record.LocationID, LocationID);
+                    parameters.put(record.LocationName, LocationName);
+                    parameters.put(record.LocationFullAddress, LocationFullAddress);
+                    parameters.put(record.RiskStatus, RiskStatus);
+                    parameters.put(record.ZoneStatus, ZoneStatus);
 
-                    JsonObjectRequest request_json = new JsonObjectRequest(API_CREATE_RECORD, new JSONObject(parameters),
+                    JsonObjectRequest request_json = new JsonObjectRequest(record.CreateRecord, new JSONObject(parameters),
                             response -> Log.i("RESPONSE", "SUCCESS!"),
                             error -> Log.i("ERORR", error.toString()));
                     RequestQueue requestQueue = Volley.newRequestQueue(this);

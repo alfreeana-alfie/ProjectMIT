@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.mit.R;
-import com.project.mit.models.Record;
+import com.project.mit.details.RecordDetails;
 
 import java.util.List;
 
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
 
     Context context;
-    private List<Record> recordList;
+    private List<RecordDetails> recordDetailsList;
     private OnItemClickListener mListerner;
 
     public void setOnItemClickListener(OnItemClickListener listener){
         mListerner = listener;
     }
 
-    public RecordAdapter(Context context, List<Record> records){
+    public RecordAdapter(Context context, List<RecordDetails> recordDetails){
         this.context = context;
-        this.recordList = records;
+        this.recordDetailsList = recordDetails;
     }
 
     @NonNull
@@ -38,10 +38,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecordAdapter.ViewHolder holder, int position) {
-        Record record = recordList.get(position);
-        String Name = record.getLocationName();
-        String Address = record.getLocationFullAddress();
-        String DateTime = record.getCreatedDateTime();
+        RecordDetails recordDetails = recordDetailsList.get(position);
+        String Name = recordDetails.getLocationName();
+        String Address = recordDetails.getLocationFullAddress();
+        String DateTime = recordDetails.getCreatedDateTime();
 
         holder.LocationName.setText(Name);
         holder.LocationFullAddress.setText(Address);
@@ -52,7 +52,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return recordList.size();
+        return recordDetailsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

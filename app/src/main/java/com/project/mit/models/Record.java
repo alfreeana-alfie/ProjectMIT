@@ -1,93 +1,16 @@
 package com.project.mit.models;
 
 public class Record {
-    public String RecordID,
-                    UserID,
-                    LocationID,
-                    LocationName,
-                    LocationFullAddress,
-                    RiskStatus,
-                    ZoneStatus,
-                    CreatedDateTime;
 
-    public Record(String recordID, String userID,
-                  String locationID,
-                  String locationName,
-                  String locationFullAddress,
-                  String riskStatus,
-                  String zoneStatus,
-                  String createdDateTime) {
-        RecordID = recordID;
-        UserID = userID;
-        LocationID = locationID;
-        LocationName = locationName;
-        LocationFullAddress = locationFullAddress;
-        RiskStatus = riskStatus;
-        ZoneStatus = zoneStatus;
-        CreatedDateTime = createdDateTime;
-    }
+    public String RecordID = "RecordID";
+    public String UserID = "UserID";
+    public String LocationID = "LocationID";
+    public String LocationName = "LocationName";
+    public String LocationFullAddress = "LocationFullAddress";
+    public String RiskStatus = "RiskStatus";
+    public String ZoneStatus = "ZoneStatus";
+    public String CreatedDateTime = "CreatedDateTime";
 
-    public String getRecordID() {
-        return RecordID;
-    }
-
-    public void setRecordID(String recordID) {
-        RecordID = recordID;
-    }
-
-    public String getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(String userID) {
-        UserID = userID;
-    }
-
-    public String getLocationID() {
-        return LocationID;
-    }
-
-    public void setLocationID(String locationID) {
-        LocationID = locationID;
-    }
-
-    public String getLocationName() {
-        return LocationName;
-    }
-
-    public void setLocationName(String locationName) {
-        LocationName = locationName;
-    }
-
-    public String getLocationFullAddress() {
-        return LocationFullAddress;
-    }
-
-    public void setLocationFullAddress(String locationFullAddress) {
-        LocationFullAddress = locationFullAddress;
-    }
-
-    public String getRiskStatus() {
-        return RiskStatus;
-    }
-
-    public void setRiskStatus(String riskStatus) {
-        RiskStatus = riskStatus;
-    }
-
-    public String getZoneStatus() {
-        return ZoneStatus;
-    }
-
-    public void setZoneStatus(String zoneStatus) {
-        ZoneStatus = zoneStatus;
-    }
-
-    public String getCreatedDateTime() {
-        return CreatedDateTime;
-    }
-
-    public void setCreatedDateTime(String createdDateTime) {
-        CreatedDateTime = createdDateTime;
-    }
+    public String CreateRecord = "http://hawkingnight.com/projectmit/API/CreateRecord.php";
+    public String GetRecordUser = "http://hawkingnight.com/projectmit/API/GetRecordUser.php?";
 }

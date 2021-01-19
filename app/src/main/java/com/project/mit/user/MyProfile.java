@@ -1,8 +1,17 @@
 package com.project.mit.user;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.se.omapi.Session;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,16 +23,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.project.mit.R;
+import com.project.mit.models.User;
 import com.project.mit.session.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class MyProfile extends AppCompatActivity {
-
-    private static String API_UPDATE_USER = "http://hawkingnight.com/projectmit/API/UpdateUser.php";
+    User user;
 
     ImageView UserImage;
     EditText FirstNameField, LastNameField, BirthdayField,
@@ -31,9 +43,11 @@ public class MyProfile extends AppCompatActivity {
             Address02Field, CityField, StateField, PostCodeField;
     Button ButtonSaved;
 
-    String getUID, getFirstName, getLastName, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
+    String getUID, getFirstName, getLastName,getImage, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
     SessionManager sessionManager;
     DatePickerDialog datePickerDialog;
+    private Bitmap bitmap;
+    public Uri filePath;
 
     private void Declare(){
         UserImage = findViewById(R.id.UserImage);
@@ -48,6 +62,8 @@ public class MyProfile extends AppCompatActivity {
         StateField = findViewById(R.id.StateField);
         PostCodeField = findViewById(R.id.PostCodeField);
         ButtonSaved = findViewById(R.id.ButtonSave);
+
+        user = new User();
     }
     private void getSession(){
         sessionManager = new SessionManager(getApplicationContext());
@@ -57,6 +73,7 @@ public class MyProfile extends AppCompatActivity {
         getUID = UserDetails.get(SessionManager.UID);
         getFirstName = UserDetails.get(SessionManager.FIRSTNAME);
         getLastName = UserDetails.get(SessionManager.LASTNAME);
+        getImage = UserDetails.get(SessionManager.PROFILE_PICTURE);
         getBirthday = UserDetails.get(SessionManager.BIRTHDAY);
         getEmail = UserDetails.get(SessionManager.EMAIL);
         getPhoneNo = UserDetails.get(SessionManager.PHONE_NO);
@@ -80,22 +97,41 @@ public class MyProfile extends AppCompatActivity {
 
         ButtonSaved.setOnClickListener(v -> SaveData());
         BirthdayField.setOnClickListener(v -> BirthdaySettings());
-    }
+        UserImage.setOnClickListener(v -> chooseFile());
 
+        Picasso.get().load(getImage).into(UserImage);
+    }
     private void BirthdaySettings(){
         Calendar calendar = Calendar.getInstance();
         int Day = calendar.get(Calendar.DAY_OF_MONTH);
         int Month = calendar.get(Calendar.MONTH);
         int Year = calendar.get(Calendar.YEAR);
-
-        datePickerDialog = new DatePickerDialog(getApplicationContext(), R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
+        closeKeyboard();
+        datePickerDialog = new DatePickerDialog(MyProfile.this, R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String Date = dayOfMonth + "/" + (month + 1) + "/" + year;
                 BirthdayField.setText(Date);
+
             }
         }, Year, Month, Day);
         datePickerDialog.show();
+    }
+    private void chooseFile(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+    }
+
+    public String getStringImage(Bitmap bitmap11) {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap11.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
+
+        return Base64.encodeToString(imageByteArray, Base64.DEFAULT);
     }
 
     @Override
@@ -120,23 +156,48 @@ public class MyProfile extends AppCompatActivity {
         String Postcode = PostCodeField.getText().toString();
 
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("UID", getUID);
-        parameters.put("FirstName", FirstName);
-        parameters.put("LastName", LastName);
-        parameters.put("Birthday", Birthday);
-        parameters.put("EmailAddress", EmailAddress);
-        parameters.put("PhoneNo", PhoneNo);
-        parameters.put("Address01", Address01);
-        parameters.put("Address02", Address02);
-        parameters.put("City", City);
-        parameters.put("State",State);
-        parameters.put("Postcode", Postcode);
+        parameters.put(user.UID, getUID);
+        parameters.put(user.FirstName, FirstName);
+        parameters.put(user.LastName, LastName);
+        parameters.put(user.ProfilePicture, getStringImage(bitmap));
+        parameters.put(user.Birthday, Birthday);
+        parameters.put(user.EmailAddress, EmailAddress);
+        parameters.put(user.PhoneNo, PhoneNo);
+        parameters.put(user.Address01, Address01);
+        parameters.put(user.Address02, Address02);
+        parameters.put(user.City, City);
+        parameters.put(user.State,State);
+        parameters.put(user.Postcode, Postcode);
 
-        JsonObjectRequest request_json = new JsonObjectRequest(API_UPDATE_USER, new JSONObject(parameters),
+        JsonObjectRequest request_json = new JsonObjectRequest(user.updateUser, new JSONObject(parameters),
                 response -> Log.i("RESPONSE", "SUCCESS!"),
                 error -> Log.i("ERORR", error.toString()));
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request_json);
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+                UserImage.setImageBitmap(bitmap);
+                Log.i("IMAGE", getStringImage(bitmap));
+                Log.i("IMAGE", String.valueOf(bitmap));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

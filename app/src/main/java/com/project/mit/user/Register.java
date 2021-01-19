@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.project.mit.models.User;
 import com.project.mit.pages.MainActivity;
 import com.project.mit.R;
 
@@ -25,10 +26,9 @@ import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
-    private static String SIGN_UP_API = "http://hawkingnight.com/projectmit/API/CreateUser.php";
-
     EditText FirstNameField, LastNameField, EmailField, PasswordField, ConfirmPasswordField;
     Button ButtonSignUp;
+    User user;
 
     private void Declare(){
         FirstNameField = findViewById(R.id.FirstNameField);
@@ -38,6 +38,8 @@ public class Register extends AppCompatActivity {
         ConfirmPasswordField = findViewById(R.id.ConfirmPasswordField);
 
         ButtonSignUp = findViewById(R.id.ButtonSignUp);
+
+        user = new User();
     }
     private void ToolbarSettings(){
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -55,12 +57,7 @@ public class Register extends AppCompatActivity {
 
     }
     private void MethodSettings(){
-        ButtonSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignUp();
-            }
-        });
+        ButtonSignUp.setOnClickListener(v -> SignUp());
     }
 
     @Override
@@ -81,13 +78,13 @@ public class Register extends AppCompatActivity {
         String ConfirmPassword = ConfirmPasswordField.getText().toString();
 
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("FirstName", FirstName);
-        parameters.put("LastName", LastName);
-        parameters.put("EmailAddress", Email);
-        parameters.put("Password", Password);
+        parameters.put(user.FirstName, FirstName);
+        parameters.put(user.LastName, LastName);
+        parameters.put(user.EmailAddress, Email);
+        parameters.put(user.Password, Password);
 
         if(ConfirmPassword.equals(Password)){
-            JsonObjectRequest request_json = new JsonObjectRequest(SIGN_UP_API, new JSONObject(parameters),
+            JsonObjectRequest request_json = new JsonObjectRequest(user.createUser, new JSONObject(parameters),
                     response -> Log.i("RESPONSE", "SUCCESS!"),
                     error -> Log.i("ERORR", error.toString()));
             RequestQueue requestQueue = Volley.newRequestQueue(this);
