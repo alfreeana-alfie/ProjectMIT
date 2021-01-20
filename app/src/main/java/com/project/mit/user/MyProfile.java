@@ -43,7 +43,7 @@ public class MyProfile extends AppCompatActivity {
             Address02Field, CityField, StateField, PostCodeField;
     Button ButtonSaved;
 
-    String getUID, getFirstName, getLastName,getImage, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
+    String getUID, getFirstName, getLastName, getImage, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
     SessionManager sessionManager;
     DatePickerDialog datePickerDialog;
     private Bitmap bitmap;
