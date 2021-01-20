@@ -28,4 +28,9 @@
     <string name="time">Time</string>
     <string name="speech_prompt">Say something&#8230;</string>
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="title">Title</string>
+    <string name="myprofile">My Profile</string>
 </resources>

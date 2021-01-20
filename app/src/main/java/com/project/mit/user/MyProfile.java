@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.se.omapi.Session;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -18,15 +17,23 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.project.mit.R;
 import com.project.mit.models.User;
+import com.project.mit.pages.Home;
+import com.project.mit.pages.MainActivity;
 import com.project.mit.session.SessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +44,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import static android.view.View.GONE;
+
 public class MyProfile extends AppCompatActivity {
     User user;
 
@@ -44,7 +53,9 @@ public class MyProfile extends AppCompatActivity {
     EditText FirstNameField, LastNameField, BirthdayField,
             EmailField, PhoneNoField, Address01Field,
             Address02Field, CityField, StateField, PostCodeField;
-    Button ButtonSaved;
+    Button ButtonSaved, ButtonEdit, ButtonSignOut, ButtonCancel;
+    ProgressBar Loading;
+    RelativeLayout LoadingLayout;
 
     String getUID, getFirstName, getLastName, getImage, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
     SessionManager sessionManager;
@@ -65,6 +76,10 @@ public class MyProfile extends AppCompatActivity {
         StateField = findViewById(R.id.StateField);
         PostCodeField = findViewById(R.id.PostCodeField);
         ButtonSaved = findViewById(R.id.ButtonSave);
+        ButtonEdit = findViewById(R.id.ButtonEditProfile);
+        ButtonSignOut = findViewById(R.id.ButtonSignOut);
+        ButtonCancel = findViewById(R.id.ButtonCancel);
+        LoadingLayout = findViewById(R.id.LoadingLayout);
 
         user = new User();
     }
@@ -86,6 +101,7 @@ public class MyProfile extends AppCompatActivity {
         getState = UserDetails.get(SessionManager.STATE);
         getPostCode = UserDetails.get(SessionManager.POSTCODE);
     }
+
     private void MethodSettings(){
         FirstNameField.setText(getFirstName);
         LastNameField.setText(getLastName);
@@ -97,12 +113,36 @@ public class MyProfile extends AppCompatActivity {
         CityField.setText(getCity);
         StateField.setText(getState);
         PostCodeField.setText(getPostCode);
+        LoadingLayout.setVisibility(GONE);
+        ButtonSaved.setVisibility(GONE);
+        ButtonCancel.setVisibility(GONE);
 
-        ButtonSaved.setOnClickListener(v -> SaveData());
+        ButtonEdit.setOnClickListener(v -> EditProfileSettings());
+        ButtonSaved.setOnClickListener(v -> SaveProfileSettings());
+        ButtonCancel.setOnClickListener(v -> CancelSettings());
+        ButtonSignOut.setOnClickListener(v -> SignOutSettings());
         BirthdayField.setOnClickListener(v -> BirthdaySettings());
         UserImage.setOnClickListener(v -> selectImage(MyProfile.this));
 
         Picasso.get().load(getImage).into(UserImage);
+    }
+    private void ToolbarSettings(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_sign_in);
+
+        View view = getSupportActionBar().getCustomView();
+        TextView TitleText = view.findViewById(R.id.action_bar_title);
+        ImageButton BackButton = view.findViewById(R.id.backButton);
+
+        TitleText.setText(R.string.myprofile);
+
+        BackButton.setOnClickListener(v -> {
+            Intent IntentBack = new Intent(getApplicationContext(), Home.class);
+            startActivity(IntentBack);
+        });
+
     }
     private void BirthdaySettings(){
         Calendar calendar = Calendar.getInstance();
@@ -120,12 +160,99 @@ public class MyProfile extends AppCompatActivity {
         }, Year, Month, Day);
         datePickerDialog.show();
     }
-    private void chooseFile(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+    private void EditProfileSettings(){
+        FirstNameField.setFocusable(true);
+        LastNameField.setFocusable(true);
+        BirthdayField.setFocusable(true);
+        EmailField.setFocusable(true);
+        PhoneNoField.setFocusable(true);
+        Address01Field.setFocusable(true);
+        Address02Field.setFocusable(true);
+        CityField.setFocusable(true);
+        StateField.setFocusable(true);
+        PostCodeField.setFocusable(true);
+        UserImage.setFocusable(true);
+
+        FirstNameField.setFocusableInTouchMode(true);
+        LastNameField.setFocusableInTouchMode(true);
+        BirthdayField.setFocusableInTouchMode(true);
+        EmailField.setFocusableInTouchMode(true);
+        PhoneNoField.setFocusableInTouchMode(true);
+        Address01Field.setFocusableInTouchMode(true);
+        Address02Field.setFocusableInTouchMode(true);
+        CityField.setFocusableInTouchMode(true);
+        StateField.setFocusableInTouchMode(true);
+        PostCodeField.setFocusableInTouchMode(true);
+        UserImage.setFocusableInTouchMode(true);
+
+        ButtonEdit.setVisibility(GONE);
+        ButtonSaved.setVisibility(View.VISIBLE);
+        ButtonCancel.setVisibility(View.VISIBLE);
     }
+    private void SaveProfileSettings(){
+        FirstNameField.setFocusable(false);
+        LastNameField.setFocusable(false);
+        BirthdayField.setFocusable(false);
+        EmailField.setFocusable(false);
+        PhoneNoField.setFocusable(false);
+        Address01Field.setFocusable(false);
+        Address02Field.setFocusable(false);
+        CityField.setFocusable(false);
+        StateField.setFocusable(false);
+        PostCodeField.setFocusable(false);
+        UserImage.setFocusable(false);
+
+        FirstNameField.setFocusableInTouchMode(false);
+        LastNameField.setFocusableInTouchMode(false);
+        BirthdayField.setFocusableInTouchMode(false);
+        EmailField.setFocusableInTouchMode(false);
+        PhoneNoField.setFocusableInTouchMode(false);
+        Address01Field.setFocusableInTouchMode(false);
+        Address02Field.setFocusableInTouchMode(false);
+        CityField.setFocusableInTouchMode(false);
+        StateField.setFocusableInTouchMode(false);
+        PostCodeField.setFocusableInTouchMode(false);
+        UserImage.setFocusableInTouchMode(false);
+
+        ButtonEdit.setVisibility(View.VISIBLE);
+        ButtonSaved.setVisibility(GONE);
+        ButtonCancel.setVisibility(GONE);
+
+        SaveData();
+    }
+    private void CancelSettings(){
+        FirstNameField.setFocusable(false);
+        LastNameField.setFocusable(false);
+        BirthdayField.setFocusable(false);
+        EmailField.setFocusable(false);
+        PhoneNoField.setFocusable(false);
+        Address01Field.setFocusable(false);
+        Address02Field.setFocusable(false);
+        CityField.setFocusable(false);
+        StateField.setFocusable(false);
+        PostCodeField.setFocusable(false);
+        UserImage.setFocusable(false);
+
+        FirstNameField.setFocusableInTouchMode(false);
+        LastNameField.setFocusableInTouchMode(false);
+        BirthdayField.setFocusableInTouchMode(false);
+        EmailField.setFocusableInTouchMode(false);
+        PhoneNoField.setFocusableInTouchMode(false);
+        Address01Field.setFocusableInTouchMode(false);
+        Address02Field.setFocusableInTouchMode(false);
+        CityField.setFocusableInTouchMode(false);
+        StateField.setFocusableInTouchMode(false);
+        PostCodeField.setFocusableInTouchMode(false);
+        UserImage.setFocusableInTouchMode(false);
+
+        ButtonEdit.setVisibility(View.VISIBLE);
+        ButtonSaved.setVisibility(GONE);
+        ButtonCancel.setVisibility(GONE);
+    }
+    private void SignOutSettings(){
+        sessionManager.logout();
+    }
+
     //START of method to allow image selection using camera/gallery
     private void selectImage(Context context) {
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
@@ -187,11 +314,13 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
         Declare();
+        ToolbarSettings();
         getSession();
         MethodSettings();
     }
 
     private void SaveData(){
+        LoadingLayout.setVisibility(View.VISIBLE);
         String FirstName = FirstNameField.getText().toString();
         String LastName = LastNameField.getText().toString();
         String Birthday = BirthdayField.getText().toString();
@@ -218,33 +347,23 @@ public class MyProfile extends AppCompatActivity {
         parameters.put(user.Postcode, Postcode);
 
         JsonObjectRequest request_json = new JsonObjectRequest(user.updateUser, new JSONObject(parameters),
-                response -> Log.i("RESPONSE", "SUCCESS!"),
-                error -> Log.i("ERORR", error.toString()));
-
+                response -> LoadingLayout.setVisibility(GONE),
+                error -> LoadingLayout.setVisibility(GONE));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request_json);
     }
     private void closeKeyboard() {
-        View view = this.getCurrentFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        View focusedView = getCurrentFocus();
+        if (focusedView != null) {
+            inputManager.hideSoftInputFromWindow(focusedView.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode,Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//            filePath = data.getData();
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-//                bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
-//                UserImage.setImageBitmap(bitmap);
-//                Log.i("IMAGE", getStringImage(bitmap));
-//                Log.i("IMAGE", String.valueOf(bitmap));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
@@ -262,8 +381,6 @@ public class MyProfile extends AppCompatActivity {
                             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                             bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
                             UserImage.setImageBitmap(bitmap);
-                            Log.i("IMAGE", getStringImage(bitmap));
-                            Log.i("IMAGE", String.valueOf(bitmap));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

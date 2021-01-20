@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.project.mit.pages.MainActivity;
+
 import java.util.HashMap;
 
 public class SessionManager {
@@ -88,9 +90,9 @@ public class SessionManager {
     public void logout() {
         editor.clear();
         editor.commit();
-//        Intent intent = new Intent(context, MainActivity.class);
-//        context.startActivity(intent);
-//        ((Homepage) context).finish();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
     }
 
 }

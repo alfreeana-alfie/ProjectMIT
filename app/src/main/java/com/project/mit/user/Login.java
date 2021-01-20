@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,7 +41,10 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar_sign_in);
 
         View view = getSupportActionBar().getCustomView();
+        TextView TitleText = view.findViewById(R.id.action_bar_title);
         ImageButton BackButton = view.findViewById(R.id.backButton);
+
+        TitleText.setText(R.string.sign_in);
 
         BackButton.setOnClickListener(v -> {
             Intent IntentBack = new Intent(getApplicationContext(), MainActivity.class);

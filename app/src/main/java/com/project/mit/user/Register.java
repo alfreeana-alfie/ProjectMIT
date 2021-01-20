@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -48,7 +49,10 @@ public class Register extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar_sign_in);
 
         View view = getSupportActionBar().getCustomView();
+        TextView TitleText = view.findViewById(R.id.action_bar_title);
         ImageButton BackButton = view.findViewById(R.id.backButton);
+
+        TitleText.setText(R.string.sign_up);
 
         BackButton.setOnClickListener(v -> {
             Intent IntentBack = new Intent(getApplicationContext(), MainActivity.class);
