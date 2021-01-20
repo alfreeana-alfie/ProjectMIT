@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ProjectMIT</string>
+    <string name="welcome">Welcome!</string>
+    <string name="username">UserName</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">Email Address</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
+    <string name="full_name">Full Name</string>
     <string name="home">Home</string>
+    <string name="user">My Profile</string>
+    <string name="phoneNo">Phone No</string>
     <string name="address01">Address 01</string>
     <string name="address02">Address 02</string>
     <string name="city">City</string>
@@ -10,4 +22,11 @@
     <string name="postcode">Postcode</string>
     <string name="accept">Accept</string>
     <string name="birthday">Birthday</string>
+    <string name="datetime">DateTime</string>
+    <string name="location_name">Location Name</string>
+    <string name="location_address">Location Address</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
 </resources>

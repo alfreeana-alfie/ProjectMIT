@@ -26,4 +26,6 @@
     <string name="location_address">Location Address</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
 </resources>
