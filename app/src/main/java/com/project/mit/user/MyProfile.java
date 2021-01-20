@@ -1,5 +1,6 @@
 package com.project.mit.user;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.provider.MediaStore;
 import android.se.omapi.Session;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -97,7 +100,7 @@ public class MyProfile extends AppCompatActivity {
 
         ButtonSaved.setOnClickListener(v -> SaveData());
         BirthdayField.setOnClickListener(v -> BirthdaySettings());
-        UserImage.setOnClickListener(v -> chooseFile());
+        UserImage.setOnClickListener(v -> selectImage(MyProfile.this));
 
         Picasso.get().load(getImage).into(UserImage);
     }
@@ -123,6 +126,29 @@ public class MyProfile extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
     }
+    //START of method to allow image selection using camera/gallery
+    private void selectImage(Context context) {
+        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Choose your profile picture");
+
+        builder.setItems(options, (dialog, item) -> {
+
+            if (options[item].equals("Take Photo")) {
+                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePicture, 0);
+
+            } else if (options[item].equals("Choose from Gallery")) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
+
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
 
     public String getStringImage(Bitmap bitmap11) {
 
@@ -133,6 +159,28 @@ public class MyProfile extends AppCompatActivity {
 
         return Base64.encodeToString(imageByteArray, Base64.DEFAULT);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_image_capture, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //END of method
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,7 +224,6 @@ public class MyProfile extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request_json);
     }
-
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -186,16 +233,42 @@ public class MyProfile extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
-                UserImage.setImageBitmap(bitmap);
-                Log.i("IMAGE", getStringImage(bitmap));
-                Log.i("IMAGE", String.valueOf(bitmap));
-            } catch (IOException e) {
-                e.printStackTrace();
+//        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//            filePath = data.getData();
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+//                UserImage.setImageBitmap(bitmap);
+//                Log.i("IMAGE", getStringImage(bitmap));
+//                Log.i("IMAGE", String.valueOf(bitmap));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        bitmap = (Bitmap) data.getExtras().get("data");
+                        UserImage.setImageBitmap(bitmap);
+                    }
+
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        filePath = data.getData();
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                            bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+                            UserImage.setImageBitmap(bitmap);
+                            Log.i("IMAGE", getStringImage(bitmap));
+                            Log.i("IMAGE", String.valueOf(bitmap));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
             }
         }
 
