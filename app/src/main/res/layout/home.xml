@@ -32,7 +32,7 @@
             android:layout_below="@id/appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="#191919"
             android:orientation="vertical">
 
             <LinearLayout
@@ -53,7 +53,7 @@
                         android:layout_height="75dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:src="@drawable/ic_login_hero" />
+                        android:src="@drawable/ic_user" />
 
                     <TextView
                         android:id="@+id/FullNameText"
@@ -101,18 +101,18 @@
                     android:layout_height="wrap_content"
                     android:text="List of Scan Place"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold|italic"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/RecordView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecordView"
+                android:layout_width="match_parent"
+                android:layout_height="403dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp" />
         </LinearLayout>
 
         <include

@@ -13,7 +13,7 @@
     <color name="colorAccent">#7C40FF</color>
     <color name="themeColor">#7C40FF</color>
 
-    <color name="darkTextColor">#020000</color>
+    <color name="darkTextColor">#fff</color>
     <color name="contentTextColor">#020000</color>
     <color name="register_bk_color">#7C40FF</color>
     <color name="register_bk_color_2">#571CD8</color>
