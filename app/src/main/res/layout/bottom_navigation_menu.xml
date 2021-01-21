@@ -8,8 +8,12 @@
         android:id="@+id/BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fabCradleMargin="10dp"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/register_bk_color_2"
+        app:maxImageSize="30dp"
+        app:fabCradleMargin="8dp"
+        app:fabCradleRoundedCornerRadius="30dp"
+        app:fabCradleVerticalOffset="6dp">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             app:labelVisibilityMode="labeled"
@@ -19,15 +23,17 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/transparent"
             android:layout_marginEnd="20dp"
-
-            app:menu="@menu/bottom_menu"/>
+            app:menu="@menu/bottom_menu_02"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/CameraOpen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/qrcode_foreground"
-        app:layout_anchor="@id/BottomAppBar"/>
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        android:backgroundTint="@color/primaryTextColor"
+        app:layout_anchor="@id/BottomAppBar"
+        app:maxImageSize="30dp"
+        android:tint="@color/whiteTextColor"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -26,32 +27,17 @@ import com.project.mit.session.SessionManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+
 public class Login extends AppCompatActivity {
     private SessionManager sessionManager;
 
     EditText EmailField, PasswordField;
     Button ButtonSignIn;
+    ImageView GotoSignUp;
 
     User user;
 
-    private void ToolbarSettings(){
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_sign_in);
-
-        View view = getSupportActionBar().getCustomView();
-        TextView TitleText = view.findViewById(R.id.action_bar_title);
-        ImageButton BackButton = view.findViewById(R.id.backButton);
-
-        TitleText.setText(R.string.sign_in);
-
-        BackButton.setOnClickListener(v -> {
-            Intent IntentBack = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(IntentBack);
-        });
-
-    }
     private void Declare(){
         EmailField = findViewById(R.id.EmailField);
         PasswordField = findViewById(R.id.PasswordField);
@@ -59,9 +45,11 @@ public class Login extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
         user = new User();
+        GotoSignUp = findViewById(R.id.GotoSignUp);
     }
     private void MethodSettings(){
         ButtonSignIn.setOnClickListener(v -> SignIn());
+        GotoSignUp.setOnClickListener(v -> startActivity(new Intent(Login.this, Register.class)));
     }
 
     @Override
@@ -69,7 +57,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
-        ToolbarSettings();
         Declare();
         MethodSettings();
     }
@@ -78,7 +65,9 @@ public class Login extends AppCompatActivity {
         String Email = EmailField.getText().toString();
         String Password = PasswordField.getText().toString();
 
-        String SIGN_IN_API = user.getUserEmailSingle + "EmailAddress=" + Email + "&Password=" + Password;
+        Log.i("USER", Email);
+
+        String SIGN_IN_API = "http://hawkingnight.com/projectmit/API/GetUserEmail.php?" + "EmailAddress=" + Email + "&Password=" + Password;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, SIGN_IN_API, response -> {
             try {

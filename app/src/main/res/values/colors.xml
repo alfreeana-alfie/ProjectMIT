@@ -7,4 +7,26 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#7C40FF</color>
+    <color name="themeColor">#7C40FF</color>
+
+    <color name="darkTextColor">#020000</color>
+    <color name="contentTextColor">#020000</color>
+    <color name="register_bk_color">#7C40FF</color>
+    <color name="register_bk_color_2">#571CD8</color>
+    <color name="login_bk_color">#fff</color>
+    <color name="login_bk_color_2">#E4E4E4</color>
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#7C40FF</color>
+
+    <color name="green_zone">#90EE90</color>
+    <color name="orange_zone">#eebf90</color>
+    <color name="red_zone">#ee9090</color>
+    <!--Color Home Page-->
+
+    <color name="colorHomePrimary">#020000</color>
+
 </resources>

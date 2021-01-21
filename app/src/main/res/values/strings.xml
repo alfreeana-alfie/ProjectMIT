@@ -33,4 +33,15 @@
     <string name="cancel">Cancel</string>
     <string name="title">Title</string>
     <string name="myprofile">My Profile</string>
+
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="location">Location</string>
+    <string name="profile">Profile</string>
+    <string name="information">information</string>
+    <string name="Information">Information</string>
+    <string name="twitterUsername">\@raviefabie</string>
+    <string name="you_are_in_green_zone">You are in Green Zone!</string>
+    <string name="you_are_in_orange_zone">You are in Orange Zone!</string>
+    <string name="you_are_in_red_zone">You are in Red Zone!</string>
 </resources>

@@ -1,59 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp">
 
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/dashboard_item_1_background">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:background="@drawable/end_view_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageIcon4"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:padding="10dp"
+                android:src="@drawable/placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/LocationName"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/LocationName"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:ellipsize="end"
-                    android:text="@string/full_name" />
-
-                <TextView
-                    android:id="@+id/LocationAddress"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:textSize="14sp"
-                    android:text="@string/address01" />
-
-            </LinearLayout>
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="80dp"
+                android:text="@string/location_name"
+                android:textColor="@color/whiteTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageIcon4"
+                app:layout_constraintTop_toTopOf="@id/imageIcon4" />
 
             <TextView
                 android:id="@+id/DateTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:textAlignment="textEnd"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/datetime"
-                tools:ignore="RtlCompat" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                android:textColor="@color/whiteTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/LocationName"
+                app:layout_constraintTop_toBottomOf="@id/LocationName"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

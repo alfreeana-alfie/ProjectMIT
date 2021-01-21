@@ -40,11 +40,11 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     public void onBindViewHolder(@NonNull RecordAdapter.ViewHolder holder, int position) {
         RecordDetails recordDetails = recordDetailsList.get(position);
         String Name = recordDetails.getLocationName();
-        String Address = recordDetails.getLocationFullAddress();
+//        String Address = recordDetails.getLocationFullAddress();
         String DateTime = recordDetails.getCreatedDateTime();
 
         holder.LocationName.setText(Name);
-        holder.LocationFullAddress.setText(Address);
+//        holder.LocationFullAddress.setText(Address);
         holder.DateTime.setText(DateTime);
 
 
@@ -61,7 +61,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             LocationName = itemView.findViewById(R.id.LocationName);
-            LocationFullAddress = itemView.findViewById(R.id.LocationAddress);
+//            LocationFullAddress = itemView.findViewById(R.id.LocationAddress);
             DateTime = itemView.findViewById(R.id.DateTime);
 
             itemView.setOnClickListener(v -> {

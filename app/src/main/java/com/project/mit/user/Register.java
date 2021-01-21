@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +26,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+
 public class Register extends AppCompatActivity {
 
     EditText FirstNameField, LastNameField, EmailField, PasswordField, ConfirmPasswordField;
-    Button ButtonSignUp;
+    CircularProgressButton ButtonSignUp;
+    ImageView GoBack;
     User user;
 
     private void Declare(){
@@ -39,37 +43,19 @@ public class Register extends AppCompatActivity {
         ConfirmPasswordField = findViewById(R.id.ConfirmPasswordField);
 
         ButtonSignUp = findViewById(R.id.ButtonSignUp);
+        GoBack = findViewById(R.id.GoBack);
 
         user = new User();
     }
-    private void ToolbarSettings(){
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_sign_in);
-
-        View view = getSupportActionBar().getCustomView();
-        TextView TitleText = view.findViewById(R.id.action_bar_title);
-        ImageButton BackButton = view.findViewById(R.id.backButton);
-
-        TitleText.setText(R.string.sign_up);
-
-        BackButton.setOnClickListener(v -> {
-            Intent IntentBack = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(IntentBack);
-        });
-
-    }
     private void MethodSettings(){
         ButtonSignUp.setOnClickListener(v -> SignUp());
+        GoBack.setOnClickListener(v -> startActivity(new Intent(Register.this, Register.class)));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_page);
-
-        ToolbarSettings();
         Declare();
         MethodSettings();
     }

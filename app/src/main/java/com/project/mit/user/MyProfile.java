@@ -56,6 +56,7 @@ public class MyProfile extends AppCompatActivity {
     Button ButtonSaved, ButtonEdit, ButtonSignOut, ButtonCancel;
     ProgressBar Loading;
     RelativeLayout LoadingLayout;
+    TextView FullNameDisplay, StateDisplay;
 
     String getUID, getFirstName, getLastName, getImage, getBirthday, getEmail, getPhoneNo, getAddress01, getAddress02, getCity, getState, getPostCode;
     SessionManager sessionManager;
@@ -80,6 +81,9 @@ public class MyProfile extends AppCompatActivity {
         ButtonSignOut = findViewById(R.id.ButtonSignOut);
         ButtonCancel = findViewById(R.id.ButtonCancel);
         LoadingLayout = findViewById(R.id.LoadingLayout);
+
+        FullNameDisplay = findViewById(R.id.FullNameDisplay);
+        StateDisplay = findViewById(R.id.StateDisplay);
 
         user = new User();
     }
@@ -116,6 +120,9 @@ public class MyProfile extends AppCompatActivity {
         LoadingLayout.setVisibility(GONE);
         ButtonSaved.setVisibility(GONE);
         ButtonCancel.setVisibility(GONE);
+
+        FullNameDisplay.setText(getFirstName + " " + getLastName);
+        StateDisplay.setText(getState + ", Malaysia");
 
         ButtonEdit.setOnClickListener(v -> EditProfileSettings());
         ButtonSaved.setOnClickListener(v -> SaveProfileSettings());

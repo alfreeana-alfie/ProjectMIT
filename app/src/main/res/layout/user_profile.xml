@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
+            android:background="@drawable/grad"
             app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
@@ -37,354 +38,362 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/UserImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <LinearLayout
-                    android:id="@+id/FirstNameLayout"
+                <RelativeLayout
+                    android:id="@+id/rellay1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
+                    android:background="@drawable/grad"
+                    android:paddingBottom="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/imgUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/circle_border">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/UserImage"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_margin="9dp"
+                            android:background="@drawable/circle"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_user" />
+
+                    </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/FirstName"
+                        android:id="@+id/FullNameDisplay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/firstname"
-                        android:textSize="20sp" />
+                        android:layout_below="@+id/imgUser"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15sp"
+                        android:fontFamily="sans-serif-light"
+                        android:text="@string/full_name"
+                        android:textColor="@color/whiteTextColor"
+                        android:textSize="32sp" />
 
-                    <EditText
-                        android:id="@+id/FirstNameField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/firstname"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/LastNameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/LastName"
+                        android:id="@+id/StateDisplay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/lastname"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/LastNameField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/lastname"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/BirthdayLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/Birthday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/birthday"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/BirthdayField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/birthday"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/EmailLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/EmailAddressText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/email"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/EmailField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/email"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="textEmailAddress"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/PhoneLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:id="@+id/PhoneText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/phoneNo"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/PhoneField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/phoneNo"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="textPhonetic"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/Address01Layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/Address01Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address01"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/Address01Field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/address01"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/Address02Layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:id="@+id/Address02Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/address02"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/Address02Field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/address02"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/CityLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:id="@+id/CityText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/city"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/CityField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/city"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/StateLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:id="@+id/StateText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/FullNameDisplay"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="sans-serif"
                         android:text="@string/state"
-                        android:textSize="20sp" />
+                        android:textAllCaps="true"
+                        android:textColor="@color/whiteTextColor"
+                        android:textSize="14sp" />
 
-                    <EditText
-                        android:id="@+id/StateField"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerInside" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/linlay1"
+                    android:layout_marginBottom="100dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/state"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:text="" />
-                </LinearLayout>
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/PostCodeLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <TextView
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/firstname"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
 
-                        android:id="@+id/PostCodeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/postcode"
-                        android:textSize="20sp" />
+                                <EditText
+                                    android:id="@+id/FirstNameField"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/firstname"
+                                    android:inputType="text"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
 
-                    <EditText
-                        android:id="@+id/PostCodeField"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:ems="10"
-                        android:hint="@string/postcode"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:text="" />
-                </LinearLayout>
+                        </LinearLayout>
 
-                <Button
-                    android:id="@+id/ButtonEditProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="@string/edit_profile"/>
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/ButtonSave"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/accept"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/lastname"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
 
-                <Button
-                    android:id="@+id/ButtonCancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/cancel"/>
+                                <EditText
+                                    android:id="@+id/LastNameField"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/lastname"
+                                    android:inputType="text"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
 
-                <Button
-                    android:id="@+id/ButtonSignOut"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/sign_out" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/birthday"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                    android:id="@+id/BirthdayField"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/birthday"
+                                    android:inputType="text"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Email Address"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                    android:id="@+id/EmailField"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/email"
+                                    android:inputType="textEmailAddress"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phoneNo"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                    android:id="@+id/PhoneField"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/phoneNo"
+                                    android:inputType="textPhonetic"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/address01"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                    android:id="@+id/Address01Field"
+                                    style="@style/modifiedEditText"
+                                    android:hint="@string/address01"
+                                    android:inputType="text"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                    android:maxLines="1" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/address02"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                android:id="@+id/Address02Field"
+                                style="@style/modifiedEditText"
+                                android:hint="@string/address02"
+                                android:inputType="text"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/city"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                android:id="@+id/CityField"
+                                style="@style/modifiedEditText"
+                                android:hint="@string/city"
+                                android:inputType="text"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/state"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                android:id="@+id/StateField"
+                                style="@style/modifiedEditText"
+                                android:hint="@string/state"
+                                android:inputType="text"
+                                android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/postcode"
+                                android:textColor="@color/register_bk_color_2"
+                                android:textSize="13sp" />
+
+                            <EditText
+                                android:id="@+id/PostCodeField"
+                                style="@style/modifiedEditText"
+                                android:hint="@string/postcode"
+                                android:inputType="text"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:maxLines="1" />
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/ButtonEditProfile"
+                            style="@style/loginButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/edit_profile"/>
+
+                        <Button
+                            android:id="@+id/ButtonSave"
+                            style="@style/loginButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/accept"/>
+
+                        <Button
+                            android:id="@+id/ButtonCancel"
+                            style="@style/loginButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/cancel"/>
+
+                        <Button
+                            android:id="@+id/ButtonSignOut"
+                            style="@style/loginButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/sign_out" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
+
         </ScrollView>
 
         <RelativeLayout
@@ -392,6 +401,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:visibility="gone"
             android:alpha="0.4">
 
             <ProgressBar

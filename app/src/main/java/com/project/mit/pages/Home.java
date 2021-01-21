@@ -13,10 +13,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 @SuppressLint({"SetTextI18n","NonConstantResourceId","ClickableViewAccessibility"})
 public class Home extends AppCompatActivity {
     private IntentIntegrator QRScanner;
@@ -64,11 +62,10 @@ public class Home extends AppCompatActivity {
     private static final String ONESIGNAL_APP_ID = "0622b6c3-655d-49d1-a0f5-c9ac022a6673";
 
 
-    ImageView UserImage;
+    CircleImageView UserImage;
     TextView FullNameText, EmailAddressText;
     BottomNavigationView bottomNavigationView;
-    FloatingActionButton CameraOpen;
-    Button ButtonVoice;
+    FloatingActionButton CameraOpen,ButtonVoice;
 
     RecyclerView RecordView;
     List<RecordDetails> recordDetailsList;
@@ -77,7 +74,6 @@ public class Home extends AppCompatActivity {
     String getUID, getImage, getFirstName, getLastName, getEmail;
     SessionManager sessionManager;
     SpeechRecognizer speechRecognizer;
-
 
     User user;
     Record record;
@@ -225,6 +221,20 @@ public class Home extends AppCompatActivity {
                 }
                 recordAdapter = new RecordAdapter(getApplicationContext(), recordDetailsList);
                 RecordView.setAdapter(recordAdapter);
+                recordAdapter.setOnItemClickListener(new RecordAdapter.OnItemClickListener() {
+                    @Override
+                    public void onViewClick(int position) {
+                        RecordDetails record1 = recordDetailsList.get(position);
+                        Intent getData = new Intent(Home.this, ScanDetail.class);
+                        getData.putExtra(record.LocationName, record1.getLocationName());
+                        getData.putExtra(record.LocationFullAddress, record1.getLocationFullAddress());
+                        getData.putExtra(record.CreatedDateTime, record1.getCreatedDateTime());
+                        getData.putExtra(record.RiskStatus, record1.getRiskStatus());
+                        getData.putExtra(record.ZoneStatus, record1.getZoneStatus());
+
+                        startActivity(getData);
+                    }
+                });
 
             } catch (JSONException e) {
                 e.printStackTrace();
