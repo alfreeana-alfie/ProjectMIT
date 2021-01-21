@@ -147,6 +147,7 @@ public class MyProfile extends AppCompatActivity {
 
         BackButton.setOnClickListener(v -> {
             Intent IntentBack = new Intent(getApplicationContext(), Home.class);
+            IntentBack.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(IntentBack);
         });
 
@@ -354,7 +355,11 @@ public class MyProfile extends AppCompatActivity {
         parameters.put(user.Postcode, Postcode);
 
         JsonObjectRequest request_json = new JsonObjectRequest(user.updateUser, new JSONObject(parameters),
-                response -> LoadingLayout.setVisibility(GONE),
+                response -> {
+                    LoadingLayout.setVisibility(GONE);
+                    sessionManager.logout();
+                    sessionManager.createSession(getUID, FirstName, LastName, "http://hawkingnight.com/projectmit/API/upload/" + FirstName +".jpg", Birthday, EmailAddress, PhoneNo, Address01, Address02, City, State, Postcode);
+                },
                 error -> LoadingLayout.setVisibility(GONE));
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request_json);

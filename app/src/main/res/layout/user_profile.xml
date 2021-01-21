@@ -139,7 +139,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/firstname"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -164,7 +164,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/lastname"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -189,7 +189,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/birthday"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -214,7 +214,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/email"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="textEmailAddress"
                                 android:maxLines="1" />
 
@@ -239,7 +239,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/phoneNo"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="textPhonetic"
                                 android:maxLines="1" />
 
@@ -264,7 +264,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/address01"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -290,7 +290,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/address02"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -315,7 +315,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/city"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -338,7 +338,7 @@
                                 android:id="@+id/StateField"
                                 style="@style/modifiedEditText"
                                 android:hint="@string/state"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 
@@ -363,7 +363,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:hint="@string/postcode"
-                                android:textColorHint="black"
+                                android:textColorHint="@color/black"
                                 android:inputType="text"
                                 android:maxLines="1" />
 

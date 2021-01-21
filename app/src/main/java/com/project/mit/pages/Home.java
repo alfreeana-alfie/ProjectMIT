@@ -138,6 +138,7 @@ public class Home extends AppCompatActivity {
 
                 case R.id.user:
                     Intent IntentUser = new Intent(getApplicationContext(), MyProfile.class);
+                    IntentUser.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(IntentUser);
                     break;
             }

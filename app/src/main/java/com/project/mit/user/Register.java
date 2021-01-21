@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
     }
     private void MethodSettings(){
         ButtonSignUp.setOnClickListener(v -> SignUp());
-        GoBack.setOnClickListener(v -> startActivity(new Intent(Register.this, Register.class)));
+        GoBack.setOnClickListener(v -> startActivity(new Intent(Register.this, MainActivity.class)));
     }
 
     @Override
@@ -70,12 +70,13 @@ public class Register extends AppCompatActivity {
         HashMap<String, String> parameters = new HashMap<>();
         parameters.put(user.FirstName, FirstName);
         parameters.put(user.LastName, LastName);
+        parameters.put(user.ProfilePicture, user.ImageURL);
         parameters.put(user.EmailAddress, Email);
         parameters.put(user.Password, Password);
 
         if(ConfirmPassword.equals(Password)){
             JsonObjectRequest request_json = new JsonObjectRequest(user.createUser, new JSONObject(parameters),
-                    response -> Log.i("RESPONSE", "SUCCESS!"),
+                    response -> startActivity(new Intent(Register.this, Login.class)),
                     error -> Log.i("ERORR", error.toString()));
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(request_json);
