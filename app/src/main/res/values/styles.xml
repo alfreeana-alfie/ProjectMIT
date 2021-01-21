@@ -36,6 +36,11 @@
         <item name="android:backgroundTint">@color/primaryTextColor</item>
     </style>
 
+    <style name="modifiedEditText2" parent="parent">
+        <item name="android:textSize">@dimen/newsMoreTextSize</item>
+        <item name="android:backgroundTint">@color/primaryTextColor</item>
+    </style>
+
     <style name="loginButton" parent="viewParent">
         <item name="android:background">@drawable/button_background_blue</item>
         <item name="android:textColor">@color/whiteTextColor</item>

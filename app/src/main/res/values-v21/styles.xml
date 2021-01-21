@@ -4,6 +4,8 @@
 
     <style name="modifiedEditText" parent="parent">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
-        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:backgroundTint">@color/themeColor</item>
+       <item name="android:textColor">@color/black</item>
     </style>
+
 </resources>
