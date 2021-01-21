@@ -18,7 +18,7 @@
             android:id="@+id/backButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:srcCompat="@drawable/back_btn_black_foreground"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView

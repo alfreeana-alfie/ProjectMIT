@@ -32,7 +32,7 @@
             android:layout_below="@id/appbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#191919"
+            android:background="#fff"
             android:orientation="vertical">
 
             <LinearLayout
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:text="List of Scan Place"
                     android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/themeColor"
                     android:textStyle="bold|italic"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="20dp" />
