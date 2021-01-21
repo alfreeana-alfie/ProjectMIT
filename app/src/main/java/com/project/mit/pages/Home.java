@@ -264,6 +264,8 @@ public class Home extends AppCompatActivity {
                         QRSettings();
                     }else if(result1.get(0).toLowerCase().contains("Camera".toLowerCase())){
                         QRSettings();
+                    }else if(result1.get(0).toLowerCase().contains("Sign out".toLowerCase())){
+                        sessionManager.logout();
                     }
                 }
                 break;

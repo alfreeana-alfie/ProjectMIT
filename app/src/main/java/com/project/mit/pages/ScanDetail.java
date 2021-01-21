@@ -58,10 +58,10 @@ public class ScanDetail extends AppCompatActivity {
             CardViewStatus.setBackgroundResource(R.color.green_zone);
         }else if(ZoneStatus.toLowerCase().equals("Orange".toLowerCase())){
             StatusText.setText(R.string.you_are_in_orange_zone);
-            CardViewStatus.setCardBackgroundColor(R.color.orange_zone);
+            CardViewStatus.setBackgroundResource(R.color.orange_zone);
         }else{
             StatusText.setText(R.string.you_are_in_red_zone);
-            CardViewStatus.setCardBackgroundColor(R.color.red_zone);
+            CardViewStatus.setBackgroundResource(R.color.red_zone);
         }
     }
 
