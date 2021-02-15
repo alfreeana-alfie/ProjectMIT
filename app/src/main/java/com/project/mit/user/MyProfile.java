@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.view.View.GONE;
 
@@ -344,7 +347,15 @@ public class MyProfile extends AppCompatActivity {
         parameters.put(user.UID, getUID);
         parameters.put(user.FirstName, FirstName);
         parameters.put(user.LastName, LastName);
-        parameters.put(user.ProfilePicture, getStringImage(bitmap));
+        if(bitmap == null){
+            parameters.put(user.ProfilePicture, getImage);
+            //Toast.makeText(this, "Please Try Again!", Toast.LENGTH_LONG).show();
+        }else{
+            parameters.put(user.ProfilePicture, getStringImage(bitmap));
+            //Toast.makeText(this, "Please !!!Try Again!", Toast.LENGTH_LONG).show();
+//            parameters.put(user.ProfilePicture, getStringImage(bitmap));
+        }
+
         parameters.put(user.Birthday, Birthday);
         parameters.put(user.EmailAddress, EmailAddress);
         parameters.put(user.PhoneNo, PhoneNo);
@@ -357,10 +368,18 @@ public class MyProfile extends AppCompatActivity {
         JsonObjectRequest request_json = new JsonObjectRequest(user.updateUser, new JSONObject(parameters),
                 response -> {
                     LoadingLayout.setVisibility(GONE);
-                    sessionManager.logout();
-                    sessionManager.createSession(getUID, FirstName, LastName, "http://hawkingnight.com/projectmit/API/upload/" + FirstName +".jpg", Birthday, EmailAddress, PhoneNo, Address01, Address02, City, State, Postcode);
+                    sessionManager.logout02();
+                    sessionManager.createSession(getUID, FirstName,
+                            LastName, "http://hawkingnight.com/projectmit/API/upload/" + FirstName +".jpg",
+                            Birthday, EmailAddress, PhoneNo, Address01, Address02, City, State, Postcode);
                 },
-                error -> LoadingLayout.setVisibility(GONE));
+                error -> {
+                    LoadingLayout.setVisibility(GONE);
+                    sessionManager.logout02();
+                    sessionManager.createSession(getUID, FirstName,
+                            LastName, "http://hawkingnight.com/projectmit/API/upload/" + FirstName +".jpg",
+                            Birthday, EmailAddress, PhoneNo, Address01, Address02, City, State, Postcode);
+                });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request_json);
     }
@@ -384,7 +403,6 @@ public class MyProfile extends AppCompatActivity {
                         bitmap = (Bitmap) data.getExtras().get("data");
                         UserImage.setImageBitmap(bitmap);
                     }
-
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {

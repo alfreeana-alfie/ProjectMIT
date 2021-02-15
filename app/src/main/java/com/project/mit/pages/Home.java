@@ -305,6 +305,7 @@ public class Home extends AppCompatActivity {
                             error -> Log.i("ERORR", error.toString()));
                     RequestQueue requestQueue = Volley.newRequestQueue(this);
                     requestQueue.add(request_json);
+                    Toast.makeText(this, "Scanned Successfully", Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

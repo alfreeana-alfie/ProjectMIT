@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.project.mit.pages.MainActivity;
 
@@ -93,6 +94,12 @@ public class SessionManager {
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+    }
+
+    public void logout02() {
+        editor.clear();
+        editor.commit();
+        Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show();
     }
 
 }

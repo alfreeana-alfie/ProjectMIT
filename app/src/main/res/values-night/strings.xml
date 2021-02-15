@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ProjectMIT</string>
+    <string name="app_name">Self-Trace App</string>
     <string name="welcome">Welcome!</string>
     <string name="username">UserName</string>
     <string name="password">Password</string>
